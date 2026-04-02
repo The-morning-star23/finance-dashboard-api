@@ -1,0 +1,56 @@
+### ==========================================
+### FINANCE DASHBOARD API - TEST SUITE
+### ==========================================
+### Note: If testing in VS Code, install the "REST Client" extension.
+### Click "Send Request" above each block to test.
+
+### 1. Register a new Admin User
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "admin2@test.com",
+  "password": "password123",
+  "role": "ADMIN"
+}
+
+### ------------------------------------------
+
+### 2. Login as Admin (Copy the token from the response)
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@test.com",
+  "password": "password123"
+}
+
+### ------------------------------------------
+### IMPORTANT: Replace `<YOUR_TOKEN_HERE>` in the requests below 
+### with the actual token you received from the Login request above.
+### ------------------------------------------
+
+### 3. Get Dashboard Summary
+GET http://localhost:3000/api/dashboard/summary
+Authorization: Bearer <YOUR_TOKEN_HERE>
+
+### ------------------------------------------
+
+### 4. Create an Income Record
+POST http://localhost:3000/api/records
+Content-Type: application/json
+Authorization: Bearer <YOUR_TOKEN_HERE>
+
+{
+  "amount": 5000,
+  "type": "INCOME",
+  "category": "Salary",
+  "date": "2026-04-01",
+  "notes": "April Salary"
+}
+
+### ------------------------------------------
+
+### 5. Get All Users
+GET http://localhost:3000/api/users
+Authorization: Bearer <YOUR_TOKEN_HERE>
