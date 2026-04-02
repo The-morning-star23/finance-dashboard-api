@@ -1,12 +1,11 @@
-﻿import { PrismaClient } from '@prisma/client';
+﻿import 'dotenv/config';
+import { PrismaClient } from '@prisma/client';
 import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3';
-import Database from 'better-sqlite3';
 
-// Initialize the SQLite database connection
-const sqlite = new Database('dev.db');
+if (!process.env.DATABASE_URL) {
+  throw new Error("DATABASE_URL is not set");
+}
 
-// Initialize the Prisma driver adapter
-const adapter = new PrismaBetterSqlite3(sqlite);
+const adapter = new PrismaBetterSqlite3({ url: process.env.DATABASE_URL });
 
-// Instantiate and export the PrismaClient (Prisma 7 requirement)
 export const prisma = new PrismaClient({ adapter });
